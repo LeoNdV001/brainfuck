@@ -1,15 +1,31 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+# IGNORED DIRECTORIES
+.idea
+.vscode
+.scannerwork
+/keys/*
+/reports/*
+/src/build/*
+/src/vendor/*
+src/tmp/*
+/mock/node_modules/*
 
-# Test binary, built with `go test -c`
+# IGNORED FILES
+/data/*.db
+.DS_Store
+.date
+*.bak
+*.code-workspace
+*.env
+.env.production
+.env.uat
 *.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-
-# Dependency directories (remove the comment below to include it)
-# vendor/
+coverage.*
+debug.*
+debug
+main
+/__debug_bin
+/watch.sh
+codeship.aes
+.env.decrypted
+dockercfg
