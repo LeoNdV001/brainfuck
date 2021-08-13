@@ -1,6 +1,8 @@
 package interpreter
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 > 	Increment the pointer.
@@ -18,6 +20,7 @@ type Interpreter struct {
 	size     int
 	commands []byte
 	pointer  int
+	parsedCommands string
 }
 
 // Loop contains helper properties for handling loops
@@ -75,7 +78,7 @@ func (interpreter *Interpreter) Decrement() {
 // Output handles the character "." (output the byte at the pointer).
 func (interpreter *Interpreter) Output() {
 	// %c returns the character represented by the corresponding Unicode code point
-	fmt.Printf("%c", interpreter.commands[interpreter.pointer])
+	interpreter.parsedCommands += fmt.Sprintf("%c", interpreter.commands[interpreter.pointer])
 }
 
 // Input handles the character "," (input a byte and store it in the byte at the pointer).
@@ -84,10 +87,9 @@ func (interpreter *Interpreter) Input() {
 	_, _ = fmt.Scanf("%c", &interpreter.commands[interpreter.pointer])
 }
 
-// Run runs the interpreter
-func (interpreter *Interpreter) Run() {
-	//@TODO: read from file
-
+// Print runs the interpreter
+func (interpreter *Interpreter) Print() {
+	fmt.Println(interpreter.parsedCommands)
 }
 
 // Parse runs the interpreter
@@ -147,6 +149,7 @@ func (interpreter *Interpreter) ParseLoop(loop *Loop, pos int, commands, current
 		loop.skipClose++
 	case "]":
 		if loop.skipClose > 0 {
+			loop.skipClose--
 			return
 		}
 
