@@ -17,10 +17,10 @@ import (
 
 // Interpreter contains the commands to run
 type Interpreter struct {
-	size     int
-	commands []byte
-	pointer  int
-	parsedCommands string
+	Size     int
+	Commands []byte
+	Pointer  int
+	ParsedCommands string
 }
 
 // Loop contains helper properties for handling loops
@@ -41,55 +41,55 @@ func NewInterpreter() *Interpreter {
 	byteSize := 30000
 
 	return &Interpreter{
-		size:     byteSize,
-		commands: make([]byte, byteSize),
-		pointer:  0,
+		Size:     byteSize,
+		Commands: make([]byte, byteSize),
+		Pointer:  0,
 	}
 }
 
 // Next handles the character ">" (increment the pointer).
 func (interpreter *Interpreter) Next() {
-	if interpreter.pointer == interpreter.size-1 {
-		interpreter.pointer = 0
+	if interpreter.Pointer == interpreter.Size-1 {
+		interpreter.Pointer = 0
 	} else {
-		interpreter.pointer++
+		interpreter.Pointer++
 	}
 }
 
 // Previous handles the character "<" (decrement the pointer).
 func (interpreter *Interpreter) Previous() {
-	if interpreter.pointer == 0 {
-		interpreter.pointer = interpreter.size - 1
+	if interpreter.Pointer == 0 {
+		interpreter.Pointer = interpreter.Size - 1
 	} else {
-		interpreter.pointer--
+		interpreter.Pointer--
 	}
 }
 
 // Increment handles the character "+" (increment the byte at the pointer).
 func (interpreter *Interpreter) Increment() {
-	interpreter.commands[interpreter.pointer]++
+	interpreter.Commands[interpreter.Pointer]++
 }
 
 // Decrement handles the character "-" (decrement the byte at the pointer).
 func (interpreter *Interpreter) Decrement() {
-	interpreter.commands[interpreter.pointer]--
+	interpreter.Commands[interpreter.Pointer]--
 }
 
 // Output handles the character "." (output the byte at the pointer).
 func (interpreter *Interpreter) Output() {
 	// %c returns the character represented by the corresponding Unicode code point
-	interpreter.parsedCommands += fmt.Sprintf("%c", interpreter.commands[interpreter.pointer])
+	interpreter.ParsedCommands += fmt.Sprintf("%c", interpreter.Commands[interpreter.Pointer])
 }
 
 // Input handles the character "," (input a byte and store it in the byte at the pointer).
 func (interpreter *Interpreter) Input() {
 	// ignore error handling for now
-	_, _ = fmt.Scanf("%c", &interpreter.commands[interpreter.pointer])
+	_, _ = fmt.Scanf("%c", &interpreter.Commands[interpreter.Pointer])
 }
 
 // Print runs the interpreter
 func (interpreter *Interpreter) Print() {
-	fmt.Println(interpreter.parsedCommands)
+	fmt.Println(interpreter.ParsedCommands)
 }
 
 // Parse runs the interpreter
@@ -168,7 +168,7 @@ func (interpreter *Interpreter) ParseLoop(loop *Loop, pos int, commands, current
 		// define and loop over commands within loop
 		loopCommands := commands[loop.startPos:loop.endPos]
 
-		for interpreter.commands[interpreter.pointer] > 0 {
+		for interpreter.Commands[interpreter.Pointer] > 0 {
 			err := interpreter.Parse(loopCommands)
 
 			// print error

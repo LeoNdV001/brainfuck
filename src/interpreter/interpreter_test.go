@@ -1,8 +1,9 @@
 package interpreter
 
 import (
-	"github.com/stretchr/testify/suite"
 	"testing"
+
+	"github.com/stretchr/testify/suite"
 )
 
 // Test Suite which encapsulate the tests for the interpreter
@@ -27,5 +28,5 @@ func TestTestSuite(t *testing.T) {
 func (test *TestSuite) TestParse() {
 	err := test.interpreter.Parse(test.helloWorld)
 	test.Nil(err)
-	test.Equal("Hello World!\n", test.interpreter.parsedCommands)
+	test.Equal("Hello World!\n", test.interpreter.ParsedCommands)
 }
